@@ -1,0 +1,86 @@
+---
+title: "My Package Information"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{My Package Information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(FALL224753mccl0102)
+```
+
+# Introduction
+
+This is a package of functions for MATH 4753, fall 22 semester. It contains various functions from labs during the course.
+
+## Myboot2 (from Lab 9)
+
+This is a bootstrapping function to calculate confidence intervals, given a sample and a given confidence level.
+
+This will take our sample, which can come from any distribution, but the Normal is used here for simplicity. The function will take that sample, calculate the confidence interval for the mean, with an alpha of 0.05 (thus, a confidence level of 1 - 0.05 = 0.95)
+
+```{r}
+# Necessary Components
+mratio <- function(x) {
+  return(mean(x)/median(x))
+}
+sam1=rnorm(25,mean=25,sd=10)
+
+# Running the function
+myboot2(iter=10000, sam1, fun="mratio", alpha=0.30)
+```
+
+## myhyper (from Lab 5)
+
+This creates a barplot for a hypergeometric distribution.
+
+```{r}
+myhyper(100,20,12,5)
+```
+
+Myhyper = (iterations, number of items in sample, number of items of importance, sample size)
+
+## mymaxlik (from Lab 10)
+
+For this function I used a series of 8 binomial experiments, each had 10 trials with the same probability of success.
+
+```{r}
+# Use functions from Lab10.R
+logbin=function(x,param) log(dbinom(x,prob=param,size=10))
+y = c(3, 3, 4, 3, 4, 5, 5, 4)
+
+# Running the function
+T2MLE = mymaxlik(y, param=seq(0, 1, length=1000), lfun=logbin, xlab=expression(pi), cex.main=2)
+```
+
+## newfunctionfromabove (from Lab 8)
+
+This function is used on uniform central limit functions. Uses a histogram to show the shape of the curve.
+```{r}
+newfunctionfromabove(25,10000,0,10)
+```
+
+You will find that as sample size increases, the function becomes more normal
+
+# Other Notes
+
+## Github Address
+
+You can find this project uploaded and updated to Github here:
+
+https://github.com/Colleen2024/MATH4753fall22
+
+## Check with Devtools
+
+0 errors v | 2 warnings x | 2 notes x
+
+The package has problems within the functions mymaxlik (maximum likelihood estimator) and newfunctionfromabove (uniform central limit function curve), but I do not have the time to fix it
